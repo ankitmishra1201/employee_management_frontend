@@ -1,16 +1,42 @@
-# task_app
+# Employee Management App
 
-An Employee Management App 
+An Employee based Management App for Flipr Hackathon
 
-## Getting Started
+Made by Tinku Choudary(Team Leader) and Ankit Mishra(Team Member)
 
-This project is a starting point for a Flutter application.
+# The app has following Features
+(a) Login and SignUp based on Role
+<br />
+(b) Features where Admin can view and add the Employees
+<br />
+(c) In Employee portal , Employee can add and see the chart of the Tasks on the selected Day.
+<br />
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# CREDENTIALS
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br />
+(ADMIN)
+<br />
+emailid: tchtinku12@gmail.com
+<br />
+password: Tinku@1409
+
+<br />
+<br />
+
+
+(Normal Employee)
+<br />
+emailid: employee@gmail.com 
+<br />
+password: employee@123
+
+
+![Simulator Screen Shot - iPhone 14 Pro - 2022-10-10 at 21 25 57](https://user-images.githubusercontent.com/75842497/194908646-bb3ca6d2-bb9f-4791-b9cd-cf5d8ac4a061.png)
+
+![Simulator Screen Shot - iPhone 14 Pro - 2022-10-10 at 21 38 47](https://user-images.githubusercontent.com/75842497/194909497-f1c67e84-c8a2-44b2-8fdd-7de9d9780c9a.png)
+
+
+
+![Simulator Screen Shot - iPhone 14 Pro - 2022-10-10 at 21 33 34](https://user-images.githubusercontent.com/75842497/194908668-e23363f9-882a-4255-a099-c02d1e024ca0.png)
