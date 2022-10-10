@@ -1,3 +1,3 @@
 class Constants {
-  static String uri = 'http://localhost:8000';
+  static String uri = 'https://flipremployeemanagement.herokuapp.com';
 }

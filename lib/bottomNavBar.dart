@@ -105,11 +105,15 @@ class _bottomNavBarState extends State<bottomNavBar> {
 
               String ?dropdownValue;
 
+
+
+
               void postTask()async{
+
                 try{
                 http.Response res = await http.post(
 
-                  Uri.parse('${Constants.uri}/signin'),
+                  Uri.parse('${Constants.uri}/task/'),
                   body: jsonEncode({
                     'title': titlecontroller.text,
                     'description': descriptioncontroller.text,
@@ -117,10 +121,13 @@ class _bottomNavBarState extends State<bottomNavBar> {
                     'start_time':startdatecontroller.text,
                     'end_time':enddatecontroller.text
 
+
+
+
                   }),
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
-                    'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcGxveWVlQGdtYWlsLmNvbSIsImlkIjoiNjM0MzhkYWVmZjZhNGE4NTQ5Zjk3NjRhIiwiaWF0IjoxNjY1MzcxNTY2fQ.9InNUaNcfJ9pv5w_bxPSE37ys8ikgHbFH2No7It9kgU'
+                    'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNDM4ZGFlZmY2YTRhODU0OWY5NzY0YSIsImlhdCI6MTY2NTQwNDY1MH0.XxLG-vy8Bm_e8UN4-KO7-lw1ae4DlSSy3jl5rPHjLWk'
                   },
                 );
                 if(res.statusCode==200){
@@ -167,7 +174,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
 
 
 
-                          items: <String>["Hello","World","Meow"]
+                          items: <String>["WORK","BREAK","MEET"]
                               .map<DropdownMenuItem<String>>( (String value){
                             return DropdownMenuItem(
                                 value: value,

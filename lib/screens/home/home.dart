@@ -15,6 +15,9 @@ import 'package:http/http.dart' as http;
 import 'package:task_app/utils/constants.dart';
 import 'dart:convert';
 import '../../utils/events.dart';
+import 'package:intl/intl.dart';
+
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -93,6 +96,7 @@ class _HomePageState extends State<HomePage> {
         _rangeStart = null; // Important to clean those
         _rangeEnd = DateTime.now();
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
+        print(_focusedDay);
       });
 
       _selectedEvents.value = _getEventsForDay(selectedDay);
@@ -100,34 +104,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   var _postdata = [];
+  num workdurtion=0;
+  num meetduration=0;
+  num breakduration=0;
 
 
 
 
 
   ///DATA MAPPING PIE CHART
-  Map<String, double> dataMap = {
-    "Flutter": 30,
-    "React": 40,
-    "Xamarin": 2,
-    "Ionic": 2,
-  };
 
-  final List<ChartData> chartData = [
-    ChartData('China', 12, 10, 14, 20),
-    ChartData('USA', 14, 11, 18, 23),
-    ChartData('UK', 16, 10, 15, 20),
-    ChartData('Brazil', 18, 16, 18, 24)
-  ];
+
+  // final List<ChartData> chartData = [
+  //   ChartData('China', 12, 10, 14, 20),
+  //   ChartData('USA', 14, 11, 18, 23),
+  //   ChartData('UK', 16, 10, 15, 20),
+  //   ChartData('Brazil', 18, 16, 18, 24)
+  // ];
   @override
   void initState(){
     super.initState();
     getUserTask();
 
   }
+  
+  
 
   @override
   Widget build(BuildContext context) {
+    Map<String, double> dataMap = {
+      "BREAK": breakduration.toDouble(),
+      "MEET": meetduration.toDouble(),
+      "WORK": workdurtion.toDouble(),
+
+    };
    getUserTask();
     int totalduration = 0;
     final user = Provider.of<UserProvider>(context).user;
@@ -175,30 +185,46 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Center(
                   child: PieChart(
+
                     dataMap: dataMap,
                     animationDuration: Duration(milliseconds: 800),
-                    chartLegendSpacing: 0,
+                    legendOptions: LegendOptions(
+                      showLegendsInRow: false,
+                      //legendPosition: LegendPosition.right,
+                      showLegends: true,
+                      //legendShape: _BoxShape.circle,
+                      legendTextStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    chartValuesOptions: ChartValuesOptions(
+                      showChartValueBackground: false,
+                      showChartValues: false,
+                      showChartValuesInPercentage: false,
+                      showChartValuesOutside: false,
+                      decimalPlaces: 1,
+                    ),
                     chartRadius: MediaQuery.of(context).size.width / 3.2,
                     chartType: ChartType.ring,
                     ringStrokeWidth: 40,
                   ),
                 ),
-                SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <CartesianSeries>[
-                      ColumnSeries<ChartData, String>(
-                          dataSource: chartData,
-                          xValueMapper: (ChartData data, _) => data.x,
-                          yValueMapper: (ChartData data, _) => data.y3),
-                      ColumnSeries<ChartData, String>(
-                          dataSource: chartData,
-                          xValueMapper: (ChartData data, _) => data.x,
-                          yValueMapper: (ChartData data, _) => data.y1),
-                      ColumnSeries<ChartData, String>(
-                          dataSource: chartData,
-                          xValueMapper: (ChartData data, _) => data.x,
-                          yValueMapper: (ChartData data, _) => data.y2)
-                    ])
+                // SfCartesianChart(
+                //     primaryXAxis: CategoryAxis(),
+                //     series: <CartesianSeries>[
+                //       ColumnSeries<ChartData, String>(
+                //           dataSource: chartData,
+                //           xValueMapper: (ChartData data, _) => data.x,
+                //           yValueMapper: (ChartData data, _) => data.y3),
+                //       ColumnSeries<ChartData, String>(
+                //           dataSource: chartData,
+                //           xValueMapper: (ChartData data, _) => data.x,
+                //           yValueMapper: (ChartData data, _) => data.y1),
+                //       ColumnSeries<ChartData, String>(
+                //           dataSource: chartData,
+                //           xValueMapper: (ChartData data, _) => data.x,
+                //           yValueMapper: (ChartData data, _) => data.y2)
+                //     ])
               ],
             ),
           ),
@@ -249,8 +275,26 @@ class _HomePageState extends State<HomePage> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               var task = _postdata[index];
+              if(task['type']=="WORK"){
+
+                  workdurtion+=task['duration'];
+
+
+              }
+              else if(task['type']=="BREAK"){
+
+                  breakduration+=task['duration'];
+
+              }
+              else if(task['type']=="MEET"){
+
+                  meetduration+=task['duration'];
+
+
+              }
+
               return Card(
-                color: (task["type"]=="WORK")?Colors.red:Colors.blueAccent,
+                color: (task["type"]=="WORK")?Colors.red:(task["type"]=="BREAK")?Colors.yellow:Colors.blue,
                 elevation: 3,
 
                 child: Column(
