@@ -1,90 +1,174 @@
-// ignore_for_file: unnecessary_null_comparison
+import 'package:date_time_picker/date_time_picker.dart';
 
+import '../../../consants.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:task_app/screens/Admin/models/user.dart';
-import 'package:task_app/screens/Admin/providers/users.dart';
-class UserForm extends StatelessWidget {
-  final _form = GlobalKey<FormState>();
-  final Map<String, String> _formData = {};
+import '../../../services/auth_service.dart';
 
-  void _loadFormData(User user) {
-    _formData['id'] = user.id;
-    _formData['name'] = user.name;
-    _formData['function'] = user.function;
-    _formData['urlAvatar'] = user.urlAvatar;
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  TextEditingController namecontroller=TextEditingController();
+  TextEditingController emailcontroller=TextEditingController();
+  TextEditingController passwordcontroller=TextEditingController();
+  TextEditingController rolecontroller=TextEditingController();
+  TextEditingController dateofjoin=TextEditingController();
+  TextEditingController departmentcontroller=TextEditingController();
+  TextEditingController contactcontroller=TextEditingController();
+
+  final AuthService authService=AuthService();
+
+  void signupUser() {
+    authService.signUpUser(
+      context: context,
+      email: emailcontroller.text,
+      password: passwordcontroller.text,
+      contactno: 56756768469,
+      name:namecontroller.text,
+      department: departmentcontroller.text,
+      dateofjoin: dateofjoin.text,
+      role: rolecontroller.text ,
+
+
+
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context).settings.arguments;
-
-    if (user != null && user.id != null) {
-      _loadFormData(user);
-    }
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Form user'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              final isValid = _form.currentState!.validate();
+        body:SafeArea(
+          child: Form(
+      child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: namecontroller,
+                  textInputAction: TextInputAction.next,
+                  cursorColor: kPrimaryColor,
 
-              if (isValid) {
-                _form.currentState!.save();
-
-                Provider.of<Users>(context, listen: false).put(
-                  User(
-                    id: _formData['id'],
-                    name: _formData['name'],
-                    function: _formData['function'],
-                    urlAvatar: _formData['urlAvatar'],
+                  decoration: const InputDecoration(
+                    hintText: " Name",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: Icon(Icons.person),
+                    ),
                   ),
-                );
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: emailcontroller,
+                  textInputAction: TextInputAction.next,
+                  cursorColor: kPrimaryColor,
+                  onSaved: (email) {},
+                  decoration: const InputDecoration(
+                    hintText: " email",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: Icon(Icons.mail),
+                    ),
+                  ),
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: contactcontroller,
+                  textInputAction: TextInputAction.next,
+                  cursorColor: kPrimaryColor,
 
-                Navigator.of(context).pop();
-              }
-            },
-          )
-        ],
+                  decoration: const InputDecoration(
+                    hintText: " Contact Number",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: Icon(Icons.phone),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+                  child: TextFormField(
+                    controller: passwordcontroller,
+                    textInputAction: TextInputAction.done,
+                    obscureText: true,
+                    cursorColor: kPrimaryColor,
+                    decoration: const InputDecoration(
+                      hintText: " password",
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(defaultPadding),
+                        child: Icon(Icons.lock),
+                      ),
+                    ),
+                  ),
+                ),
+
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: departmentcontroller,
+                  textInputAction: TextInputAction.next,
+                  cursorColor: kPrimaryColor,
+
+                  decoration: const InputDecoration(
+                    hintText: " Department",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: Icon(Icons.work),
+                    ),
+                  ),
+                ),
+                DateTimePicker(
+                  type: DateTimePickerType.dateTime,
+                  dateMask: 'd MMM, yyyy',
+                  dateLabelText: "Enter Start Date & Time",
+
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime.now(),
+                  icon: Icon(Icons.event),
+                  controller: dateofjoin,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: rolecontroller,
+                  textInputAction: TextInputAction.next,
+                  cursorColor: kPrimaryColor,
+
+                  decoration: const InputDecoration(
+                    hintText: " Role(ADMIN/NORMAL)",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: Icon(Icons.admin_panel_settings),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: defaultPadding),
+                Hero(
+                  tag: "login_btn",
+                  child: ElevatedButton(
+                    onPressed: (){
+                      signupUser();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "ADD USER".toUpperCase(),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: defaultPadding),
+
+              ],
+            ),
+          ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Form(
-          key: _form,
-          child: Column(children: <Widget>[
-            TextFormField(
-              initialValue: _formData['name'],
-              decoration: InputDecoration(labelText: 'Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Name cannot be empty.';
-                }
-                return null;
-              },
-              onSaved: (value) => _formData['name'] = value!,
-            ),
-            TextFormField(
-              initialValue: _formData['function'],
-              decoration: InputDecoration(labelText: 'Function'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Function cannot be empty.';
-                }
-                return null;
-              },
-              onSaved: (value) => _formData['function'] = value!,
-            ),
-            TextFormField(
-              initialValue: _formData['urlAvatar'],
-              decoration: InputDecoration(labelText: 'Url Image'),
-              onSaved: (value) => _formData['urlAvatar'] = value!,
-            ),
-          ]),
+          ),
         ),
-      ),
     );
   }
 }

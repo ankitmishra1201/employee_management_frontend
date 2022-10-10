@@ -42,13 +42,13 @@ class UserTile extends StatelessWidget {
                     title: Text('Delete user'),
                     content: Text('want to delete?'),
                     actions: <Widget>[
-                      FlatButton(
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                         child: Text('No'),
                       ),
-                      FlatButton(
+                      ElevatedButton(
                         onPressed: () {
                           Provider.of<Users>(context, listen: false)
                               .remove(user);

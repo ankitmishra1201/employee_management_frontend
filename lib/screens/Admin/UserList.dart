@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_app/screens/Admin/views/user_form.dart';
 import '../../providers/user_provider.dart';
 import '../../utils/constants.dart';
 import 'dart:convert';
@@ -63,10 +64,22 @@ class _UserListState extends State<UserList> {
 
             itemBuilder: (context,index){
               var user=_postdata[index];
-              return Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Text(user['name']),
+              return Padding(
+                padding: EdgeInsets.all(50),
+                child: GestureDetector(
+                  onTap: null,
+                  child: Container(
+
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue,
+                    ),
+
+                    child: Center(
+                      child: Text(user['name'].toString()),
+                    ),
+                  ),
                 ),
               );
             },
@@ -76,9 +89,13 @@ class _UserListState extends State<UserList> {
               );
       },
             itemCount: _postdata.length
-      )
+      ),
 
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginForm())),
+        child: Icon(Icons.add),
+      )
     );
   }
 }
