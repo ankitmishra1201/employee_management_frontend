@@ -165,12 +165,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold)),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout, color: Colors.black, size: 40),
-            onPressed: () => authService.signOut(context),
-          ),
-        ],
+
       ),
       // ignore: dead_code
 
@@ -244,7 +239,7 @@ class _HomePageState extends State<HomePage> {
 
           /// TASKS CARD
 
-          //Expanded(child: Tasks()),
+         // Expanded(child: Tasks()),
 
           ///Calender
           Expanded(

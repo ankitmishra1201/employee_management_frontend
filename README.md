@@ -1,6 +1,6 @@
 # task_app
 
-A new Flutter project.
+An Employee Management App 
 
 ## Getting Started
 
