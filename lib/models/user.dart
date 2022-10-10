@@ -7,7 +7,7 @@ class User {
   final String email;
   final String department;
   final int contactno;
-  final DateTime dateofjoin;
+  final String dateofjoin;
   final String token;
   final String password;
   final String role;
@@ -37,15 +37,15 @@ class User {
 
   factory User.fromJSON(Map<String, dynamic> map) {
     return User(
-      id: map['_id'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      token: map['token'] ?? '',
-      password: map['password'] ?? '',
-      contactno: map['contactno']??123456,
-      dateofjoin: map['dateofjoin']??DateTime.now(),
-      department: map['department']??'',
-      role: map['role']??''
+        id: map['_id'] ?? '',
+        name: map['name'] ?? '',
+        email: map['email'] ?? '',
+        token: map['token'] ?? '',
+        password: map['password'] ?? '',
+        contactno: map['contactno']??123456,
+        dateofjoin: map['dateofjoin']??'',
+        department: map['department']??'',
+        role: map['role']??''
     );
   }
 

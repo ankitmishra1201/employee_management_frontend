@@ -9,8 +9,8 @@ class UserProvider extends ChangeNotifier {
     token: '',
     password: '',
     department: '',
-    contactno: 123456,
-    dateofjoin: DateTime.now(),
+    contactno: 0,
+    dateofjoin: '',
     role: ''
 
   );
