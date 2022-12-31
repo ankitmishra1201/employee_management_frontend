@@ -1,6 +1,6 @@
 # Employee Management App
 
-An Employee based Management App for Flipr Hackathon
+An Employee based Management App
 
 Made by Tinku Choudary(Team Leader) and Ankit Mishra(Team Member)
 
